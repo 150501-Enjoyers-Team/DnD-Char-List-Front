@@ -18,7 +18,7 @@ const SuccessGoogleLoginPage = () => {
             const jwtBody = JSON.parse(atob(tokenObj.accessToken.split(".")[1]))
             localStorage.setItem("access_token", "Bearer " + tokenObj.accessToken)
             localStorage.setItem("refresh_token", tokenObj.refreshToken)
-            console.log("Acces token is " + tokenObj.refreshToken)
+            console.log("Refresh token is " + tokenObj.refreshToken)
             console.log("Getting new acces token")
            // navigate("/list-of-characters?username=" + jwtBody.email + "&")
         })

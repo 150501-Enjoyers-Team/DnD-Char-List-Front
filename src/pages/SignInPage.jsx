@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Input from '../../components/Input';
-import "./style.css"
+import "./styles//style.css"
 import { useNavigate } from 'react-router-dom';
-import BasicAuthApi from '../../API/BasicAuthAPI';
-import OAuthGoogleApi from "../../API/OAuthGoogleAPI"
+import BasicAuthApi from '../API/BasicAuthAPI';
+import OAuthGoogleApi from "../API/OAuthGoogleAPI"
 
 const RegistrationForm = props => {
   const [login, setLogin] = useState('');
@@ -70,29 +69,16 @@ const RegistrationForm = props => {
   }
 
   return (
-    <div>
+    <div class="login-background">
       <form action="registration">
-        <Input class="login" type="text" name="login" placeholder="Логин"
-        onChange={(event) => setLogin(event.target.value)}
-        />
-        <Input class="password" type="password" name="password"  placeholder="Пароль"
-         onChange={(event) => setPassword(event.target.value)}
-        />
-        <div class="form-group">
-          <button onClick={sendLoginData} type="submit">Подтвердить</button>
-        </div>  
-        <div class="form-group">
-          <button onClick={sendRegisterData} type="submit">Зарегистрировать</button>
-        </div>
-        <div class="form-group">
-          <p>{closedData}</p>
-          <button onClick={getClosedData} type="submit">Получить доступ к закрытой информации</button>
-        </div> 
-        <div class="form-group">
-          <p/>
-          <button onClick={doGoogleAuth} type="submit">Войти через google</button>
-        </div>         
+        <input class="login-form" type="text" name="login" placeholder="Login" onChange={(event) => setLogin(event.target.value)}/>
+        <input class="login-form" type="password" name="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
+        <input class="login-form" type="submit" value="Submit"/>
       </form>
+      
+      <button onClick={sendRegisterData} type="submit">Зарегистрировать</button>
+      <button onClick={getClosedData} type="submit">Получить доступ к закрытой информации</button>
+      <button onClick={doGoogleAuth} type="submit">Войти через google</button>
     </div>
   );
 };

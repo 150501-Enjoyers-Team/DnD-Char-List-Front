@@ -51,6 +51,7 @@ class OAuthGoogleApi
             .then(checkResponseForErrors)
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                return {
                     accessToken: data.id_token,
                     refreshToken: data.refresh_token

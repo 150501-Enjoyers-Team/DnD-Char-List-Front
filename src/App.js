@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import RegistrationForm from './testSoulutions/login-regisration/RegistrationForm'; 
+import RegistrationForm from './pages/SignInPage'; 
 import { Route, BrowserRouter, Routes} from 'react-router-dom';
 import SuccessGoogleLoginPage from './pages/SuccessGoogleLoginPage';
 import ListOfCharactersPage from './pages/ListOfCharactersPage';
@@ -8,7 +8,6 @@ import ListOfCharactersPage from './pages/ListOfCharactersPage';
 function App() {
   return (
     <div>
-      <h1>Hello world!</h1>
       <BrowserRouter>
       <Routes>
         <Route path ="/" element={<RegistrationForm />}/>
