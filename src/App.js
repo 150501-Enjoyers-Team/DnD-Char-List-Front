@@ -1,13 +1,19 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import RegistrationForm from './pages/SignInPage'; 
 import { Route, BrowserRouter, Routes} from 'react-router-dom';
 import SuccessGoogleLoginPage from './pages/SuccessGoogleLoginPage';
 import ListOfCharactersPage from './pages/ListOfCharactersPage';
 
+import './components/background/starSky.css';
+import StarSky from "./components/background/starSky";
+
+
+
 function App() {
   return (
     <div>
+      
       <BrowserRouter>
       <Routes>
         <Route path ="/" element={<RegistrationForm />}/>
@@ -15,11 +21,14 @@ function App() {
         <Route path="/list-of-characters" element={<ListOfCharactersPage />}/>
       </Routes>
     </BrowserRouter>
+    <StarSky/>
     </div>
   );
 }
 
 export default App;
+
+// 
 
 
 /* rcc→	class component skeleton

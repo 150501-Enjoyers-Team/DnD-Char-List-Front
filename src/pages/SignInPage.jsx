@@ -76,9 +76,12 @@ const RegistrationForm = props => {
         <input class="login-form" type="submit" value="Submit"/>
       </form>
       
-      <button onClick={sendRegisterData} type="submit">Зарегистрировать</button>
-      <button onClick={getClosedData} type="submit">Получить доступ к закрытой информации</button>
-      <button onClick={doGoogleAuth} type="submit">Войти через google</button>
+      <div className="button-container">
+        <button onClick={sendRegisterData} type="submit">Зарегистрировать</button>
+        <button onClick={getClosedData} type="submit">Получить доступ к закрытой информации</button>
+        <button onClick={doGoogleAuth} type="submit">Войти через google</button>
+      </div>
+      
     </div>
   );
 };
