@@ -1,65 +1,46 @@
 import React, { useState } from 'react';
-import "./styles//style.css"
+
 import { useNavigate } from 'react-router-dom';
-import BasicAuthApi from '../API/BasicAuthAPI';
+
 import OAuthGoogleApi from "../API/OAuthGoogleAPI"
 
+
+
 const RegistrationForm = props => {
+
+  const { users, addUser, onLogin } = props;
+
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [closedData, setClosedData] = useState("");
   const navigate = useNavigate();
 
-  if (localStorage.getItem("access_token"))
-  {}
 
-  const handleError = (e) => {
-    if (e.status) console.log("status error with status: " + e.status)
-    else console.log(e)
-  } 
-
-  const sendLoginData = (event) =>
-  {
+  const sendLoginData = (event) => {
     event.preventDefault();
     console.log(login);
     console.log(password);
+  
+    // Проверяем, есть ли пользователь с введенным логином и паролем
+    const userFound = users.find(user => user.username === login && user.password === password);
+  
+    if (userFound) {
+      console.log("Да"); // Если найден пользователь с таким логином и паролем
+      onLogin(userFound);
+      //localStorage.setItem("access_token", "Bearer " + userFound.token);
+      //navigate("/list-of-characters?username=" + login + "&");
+      navigate('/list-of-characters');
+    } else {
+      console.log("Нет"); // Если пользователь не найден
+      // Можно добавить какое-то сообщение об ошибке или обработку других действий
+    }
+  };
 
-    BasicAuthApi.postAuthData(login, password)
-    .then(data => {
-      localStorage.setItem("access_token", "Bearer " + data.token)
-    })
-    .then(() => {
-      navigate("/list-of-characters?username=" + login + "&")
-    })
-    .catch(handleError)
-  }
-
-  const sendRegisterData = (event) =>
-  {
-    event.preventDefault()
-    BasicAuthApi.postRegistrationData(login, password)
-    .catch(handleError)
-  }
-
-  const getClosedData = (event) =>
-  {
-    event.preventDefault()
-    fetch("http://localhost:8080/secured", {
-      method: 'GET',
-      headers: {
-          "Authorization":  localStorage.getItem("access_token")
-      },
-    })
-    .then(response =>{
-      if (!response.ok) {
-          let error = new Error()
-          error.status = response.status
-          throw error
-      }
-      return response;
-    })
-    .catch(handleError)
-  }
+  const sendRegisterData = (event) => {
+    event.preventDefault();
+    addUser(login, password);
+    console.log("Пользователь добавлен:", login);
+    console.log("Массив пользователей:", users);
+  };
 
 
   const doGoogleAuth = (event) =>
@@ -69,16 +50,17 @@ const RegistrationForm = props => {
   }
 
   return (
-    <div class="login-background">
-      <form action="registration">
-        <input class="login-form" type="text" name="login" placeholder="Login" onChange={(event) => setLogin(event.target.value)}/>
-        <input class="login-form" type="password" name="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
-        <input class="login-form" type="submit" value="Submit"/>
-      </form>
-      
+    <div className="login-background">
+
       <div className="button-container">
+        <form action="registration" onSubmit={sendLoginData}>
+          <input className="login-form" type="text" name="login" placeholder="Login" onChange={(event) => setLogin(event.target.value)}/>
+          <input className="login-form" type="password" name="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
+          <input className="login-form" type="submit" value="Submit"/>
+        </form>
+        
         <button onClick={sendRegisterData} type="submit">Зарегистрировать</button>
-        <button onClick={getClosedData} type="submit">Получить доступ к закрытой информации</button>
+        
         <button onClick={doGoogleAuth} type="submit">Войти через google</button>
       </div>
       
@@ -87,3 +69,11 @@ const RegistrationForm = props => {
 };
 
 export default RegistrationForm;
+
+
+
+
+
+
+
+// <button onClick={getClosedData} type="submit">Получить доступ к закрытой информации</button>
